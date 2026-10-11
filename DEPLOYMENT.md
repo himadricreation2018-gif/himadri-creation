@@ -49,7 +49,7 @@ The existing default database is Firestore Native, STANDARD, asia-south1, freeTi
 
 Read-only checks now show Firebase SDK initialization succeeds, public published reads return 200 and anonymous draft reads return 403. The ordered listing query initially reported that its composite index was still building; retest once indexes are READY. No articles were created or altered to test this.
 
-Administrator setup is pending the exact existing user's email or UID; the user's supplied email was a placeholder. No user was created or granted privileges. The local utility requires trusted Application Default Credentials and an explicit exact UID. See FIREBASE_SETUP.md. It verifies the account, preserves unrelated claims and verifies the written admin:true claim. Website login/CRUD using the real administrator remains unverified.
+Administrator setup was verified for existing UID fTRxMtHuqicV01EvxaYSB2EBhop1 (himadricreation2018@gmail.com), enabled. The Firebase Admin SDK used the already-authorized Firebase CLI session through an in-memory credential provider after Application Default Credentials were unavailable. It read the user before changing claims, preserved unrelated claims, granted admin:true and read the account back to verify success. No user was created, credential file written or token printed. Log out of the website and log back in to refresh the ID token. The reusable local operator script uses trusted Application Default Credentials; see FIREBASE_SETUP.md. Real administrator browser login/CRUD remains unverified.
 
 Firebase Storage remains disabled. Free image support uses existing deployed assets, or new images added under assets/blog and deployed through the website; these files are public. Private draft images must not be added to static assets.
 
@@ -59,6 +59,6 @@ npm run build and npm run check passed. npm test: 20 passed. npm run test:rules:
 
 The in-app browser connection failed with a sandbox metadata error; verification used the project's existing installed-browser test script. That browser suite blocks external requests, so it does not prove live login or Firebase CRUD. Careers form validation and WhatsApp message construction passed application tests; no external form message was sent.
 
-Remaining: GitHub write access, correct Vercel account/project access, exact administrator identity and privileged credential availability, ready composite indexes, live administrator login/CRUD, review-branch push and Vercel preview route/asset checks. DNS and the live custom-domain deployment remain unchanged.
+Remaining: GitHub write access, correct Vercel account/project access, ready composite indexes, live administrator login/CRUD, review-branch push and Vercel preview route/asset checks. DNS and the live custom-domain deployment remain unchanged.
 
 References: https://vercel.com/docs/project-configuration/vercel-json ; https://vercel.com/docs/git/vercel-for-github ; https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository ; https://firebase.google.com/docs/auth/admin/custom-claims
