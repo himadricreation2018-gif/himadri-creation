@@ -12,6 +12,12 @@ Before calling the blog ready, create the Firestore database, publish the includ
 
 Verification: `npm run check`, `npm test`, `npm run test:browser`; Firestore/Storage rules can be checked against local emulators using `npm run test:rules`.
 
-The owner selected Firebase Hosting on Spark for the launch. Vercel configuration is retained as an optional future migration. Source repository: https://github.com/Surjendu-Pal/himadri-creation (private). Production deployment is pending Firebase CLI sign-in.
+The owner selected Firebase Hosting on Spark for the launch. Vercel configuration is retained as an optional future migration. Source repository: https://github.com/Surjendu-Pal/himadri-creation (private). Production deployment requires fresh owner approval.
 
 The latest instruction authorizes **preview only**. Production deployment requires a new approval. After Firebase login succeeds, run `npm run deploy:preview` to build and publish the `review` channel in `himadri-creation`, expiring after seven days. It uploads Hosting content only, does not publish Firestore/Storage rules, and suppresses automatic Authentication authorized-domain edits. Firebase preview channels share the configured live backend; do not create or change real articles merely to test the layout. Any authorization-domain change needed for authentication testing must be reviewed separately.
+
+## Verified preview
+
+Firebase CLI is authenticated as `himadricreation2018@gmail.com`; remote project access and the selected default both confirm `himadri-creation` (project number `68247301170`). Hosting preview `https://himadri-creation--review-hrcnm6us.web.app` was published successfully to `review`, expiring on 18 October 2026 at 09:10 IST. No live-channel deployment or Authentication domain synchronization was performed.
+
+Twelve hosted page, route fallback, script, stylesheet, image-library and logo requests returned HTTP 200. This confirms Hosting delivery, not successful live article CRUD. Cloud Firestore API remains disabled. A read-only lookup confirms the existing administrator account is enabled but currently lacks `admin: true`. Database/rules/index setup and the administrator claim remain necessary before blog management can work.

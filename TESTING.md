@@ -46,3 +46,9 @@ The default local project remains `himadri-creation`. Rechecked CLI authenticati
 `npm run deploy:preview` rebuilt successfully, then failed before deployment with `Failed to authenticate, have you run firebase login?`. No preview URL was created. This command targets only the seven-day `review` Hosting channel in the explicit project and suppresses Authentication domain synchronization. Production deployment now requires fresh approval.
 
 Syntax checks, 15 application tests and the demo emulator rules suite were rerun successfully. Live Firestore still reports its API disabled; the status utility now explicitly marks draft privacy as unverified unless published reads succeed and draft reads are denied.
+
+## Successful authenticated preview follow-up
+
+CLI sign-in is now verified as `himadricreation2018@gmail.com`; `projects:list` includes active `himadri-creation`, number `68247301170`, and `firebase use` returns that project. `npm run deploy:preview -- --json` succeeded. Preview: https://himadri-creation--review-hrcnm6us.web.app, expiry 18 October 2026 at 09:10 IST. Twelve HTTP route/asset checks passed, including `/admin/blog`, `/admin/login` and blog article fallbacks. Production was not deployed.
+
+Authenticated read-only checks confirm Firestore API is still disabled and the enabled account `himadricreation2018@gmail.com` does not have an admin claim. Preview delivery therefore does not establish operational blog CRUD. No user password, custom claims, security rules, paid service, DNS setting or Authentication domain was changed.

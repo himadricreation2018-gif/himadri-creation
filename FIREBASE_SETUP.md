@@ -14,9 +14,9 @@ Read-only `npm run firebase:status` returned:
 | Authentication | HTTP 200; existing administrator shown in the Console | Sign in with the password created for that Firebase user; assign the administrator claim |
 | Published Firestore query | HTTP 403; Cloud Firestore API has not been used in this project or is disabled | Create/reuse the default database and activate its API if needed |
 | Draft Firestore query | The same service-disabled HTTP 403 | Live draft privacy remains unverified; test again after database/rules setup |
-| Firebase CLI account | No authorized accounts | Sign in before CLI rule/index or Hosting operations |
+| Firebase CLI account | Authenticated as `himadricreation2018@gmail.com`; project access confirmed | Preserve project selection `himadri-creation` |
 
-The draft request's 403 is **not proof that security rules denied a draft**: the Firestore service is unavailable before rule evaluation can be verified. App/service console inspection remains unavailable without an authorized CLI account. No live Firebase service was enabled by this session. Storage remains disabled locally; no new project, paid service, deployment, billing, or DNS change was made.
+The draft request's 403 is **not proof that security rules denied a draft**: the Firestore service is unavailable before rule evaluation can be verified. An authorized CLI account now confirms project access and an enabled admin user without the required custom claim. No live Firebase service was enabled by this session. Storage remains disabled locally; no new project, paid service, deployment, billing, or DNS change was made.
 
 ## Preserve the supplied Web App configuration
 
@@ -156,4 +156,6 @@ Relevant implementation files: [src/firebase.js](src/firebase.js), [scripts/fire
 
 ## Authorized Firebase Hosting launch
 
-The owner selected free Firebase Hosting for deployment. The source is backed up in the private GitHub repository https://github.com/Surjendu-Pal/himadri-creation. Firebase CLI authentication is still required; no production deployment has succeeded yet. After account authorization and project access verification, deploy only Hosting using `npx firebase deploy --project himadri-creation --only hosting`. This does not activate Storage or change GoDaddy DNS. Publishing Hosting alone does not complete the Firestore/admin setup.
+The owner selected free Firebase Hosting for deployment. The source is backed up in the private GitHub repository https://github.com/Surjendu-Pal/himadri-creation. Firebase CLI authentication is still required; a Hosting preview has succeeded, and no production deployment has been performed. The latest instruction requires renewed approval before any production deployment. Only after that approval, deploy Hosting using `npx firebase deploy --project himadri-creation --only hosting`. This does not activate Storage or change GoDaddy DNS. Publishing Hosting alone does not complete the Firestore/admin setup.
+
+Preview for review: https://himadri-creation--review-hrcnm6us.web.app (expires 18 October 2026, 09:10 IST). Test Home, Careers, Book Now and responsive menus there. Authentication/domain settings were not edited. The existing enabled admin account lacks `admin: true`; Firestore API is disabled, so a complete blog/admin round trip remains unavailable.
