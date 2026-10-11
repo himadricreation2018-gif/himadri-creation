@@ -19,7 +19,7 @@
 | Check | Observed result | Required action |
 | --- | --- | --- |
 | Public configuration | Complete; project `himadri-creation` | Saved in ignored `.env` and compiled by the build |
-| Authentication configuration | HTTP 400, `CONFIGURATION_NOT_FOUND` | Start Authentication and enable Email/Password in Firebase Console |
+| Authentication configuration | HTTP 200; project number `68247301170` | Authentication is active; administrator claim remains unverified |
 | Published Firestore query | HTTP 403; Cloud Firestore API not used or disabled | Create/enable default Firestore database/API, then apply rules and indexes |
 | Draft query | Same service-disabled HTTP 403 | Live draft security cannot be inferred from a disabled service |
 | CLI account | No authorized account; app listing failed authentication | Authorized operator runs `npx firebase login` |
@@ -39,3 +39,10 @@ No live article CRUD, administrator login/custom claim, rules/index deployment o
 - No production or preview deployment, HTTPS migration, DNS edit, paid-service activation or billing change occurred. The live site remains untouched.
 
 Run the manual Firebase/staging checklist in `FIREBASE_SETUP.md` after enabling the services.
+## Preview-only follow-up
+
+The default local project remains `himadri-creation`. Rechecked CLI authentication: no authorized accounts, with a pending login session in the current Windows profile. `firebase use` could not authenticate, so remote project access is not confirmed.
+
+`npm run deploy:preview` rebuilt successfully, then failed before deployment with `Failed to authenticate, have you run firebase login?`. No preview URL was created. This command targets only the seven-day `review` Hosting channel in the explicit project and suppresses Authentication domain synchronization. Production deployment now requires fresh approval.
+
+Syntax checks, 15 application tests and the demo emulator rules suite were rerun successfully. Live Firestore still reports its API disabled; the status utility now explicitly marks draft privacy as unverified unless published reads succeed and draft reads are denied.

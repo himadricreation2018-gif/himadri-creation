@@ -7,6 +7,7 @@
     "preview": "node scripts/serve.mjs",
     "test:browser": "node scripts/browser-check.mjs",
     "firebase:status": "node scripts/firebase-status.mjs",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy review --project himadri-creation --expires 7d --no-authorized-domains --non-interactive",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/core.test.mjs tests/ui.test.mjs tests/setup.test.mjs",
     "test:rules": "firebase emulators:exec --project demo-himadri --only firestore,storage \"node --test tests/rules.test.mjs\""

@@ -32,7 +32,7 @@ else {
     sdkInitialized,
     authentication:{httpStatus:auth.status,projectId:auth.body?.projectId || null,authorizedDomains:auth.body?.authorizedDomains || [],error:error(auth)},
     publishedRead:{httpStatus:published.status,readSucceeded:published.status===200,error:error(published)},
-    draftPrivacy:{httpStatus:drafts.status,accessDenied:drafts.status===403,error:error(drafts)},
+    draftPrivacy:{httpStatus:drafts.status,accessDenied:drafts.status===403,verified:published.status===200 && drafts.status===403,error:error(drafts)},
     storageEnabled:process.env.FIREBASE_STORAGE_ENABLED==='true',
     deployedByThisCommand:false
   };

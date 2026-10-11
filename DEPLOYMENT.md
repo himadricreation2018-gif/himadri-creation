@@ -13,3 +13,5 @@ Before calling the blog ready, create the Firestore database, publish the includ
 Verification: `npm run check`, `npm test`, `npm run test:browser`; Firestore/Storage rules can be checked against local emulators using `npm run test:rules`.
 
 The owner selected Firebase Hosting on Spark for the launch. Vercel configuration is retained as an optional future migration. Source repository: https://github.com/Surjendu-Pal/himadri-creation (private). Production deployment is pending Firebase CLI sign-in.
+
+The latest instruction authorizes **preview only**. Production deployment requires a new approval. After Firebase login succeeds, run `npm run deploy:preview` to build and publish the `review` channel in `himadri-creation`, expiring after seven days. It uploads Hosting content only, does not publish Firestore/Storage rules, and suppresses automatic Authentication authorized-domain edits. Firebase preview channels share the configured live backend; do not create or change real articles merely to test the layout. Any authorization-domain change needed for authentication testing must be reviewed separately.
