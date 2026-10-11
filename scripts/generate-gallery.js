@@ -11,7 +11,7 @@ const galleryCategories = [
   { label: "Birthday", slug: "birthday", folder: "birthday" },
   { label: "Engagement", slug: "engagement", folder: "engagement" },
   { label: "Reception", slug: "reception", folder: "reception" },
-  { label: "Rice Ceremony", slug: "rice-Ceremony", folder: "rice-Ceremony" },
+  { label: "Rice Ceremony", slug: "rice-ceremony", folder: "rice-ceremony" },
   { label: "Drone Shoots", slug: "drone-shoots", folder: "drone-shoots" },
   { label: "Event Shoots", slug: "event-shoots", folder: "event-shoots" },
 ];
@@ -41,7 +41,7 @@ function buildGalleryData() {
       category: label,
       categorySlug: slug,
       title: `${label} Memory`,
-      src: `./assets/gallery/${folder}/${encodeURIComponent(fileName)}`,
+      src: `/assets/gallery/${folder}/${encodeURIComponent(fileName)}`,
     }));
   });
 }
