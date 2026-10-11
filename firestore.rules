@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() { return request.auth != null && 'admin' in request.auth.token && request.auth.token.admin == true; }
+    function validPost(id) {
+      let p = request.resource.data;
+      return p.keys().hasAll(['id','title','slug','excerpt','content','coverImage','category','author','seoTitle','seoDescription','status','createdAt','updatedAt','publishedAt'])
+        && p.keys().hasOnly(['id','title','slug','excerpt','content','coverImage','category','author','seoTitle','seoDescription','status','createdAt','updatedAt','publishedAt'])
+        && p.id == id && p.title is string && p.title.size() > 0 && p.title.size() <= 180
+        && p.slug is string && p.slug.size() <= 100 && p.slug.matches('^[a-z0-9]+(-[a-z0-9]+)*$')
+        && p.excerpt is string && p.excerpt.size() > 0 && p.excerpt.size() <= 500
+        && p.content is string && p.content.size() > 0 && p.content.size() <= 300000
+        && p.coverImage is string && p.coverImage.size() <= 2000 && (p.coverImage.matches('^https://.*') || p.coverImage.matches('^/assets/.*'))
+        && p.category in ['Wedding Photography','Pre-Wedding Shoots','Photography Tips','Cinematography','Behind the Scenes']
+        && p.author is string && p.author.size() > 0 && p.author.size() <= 100
+        && p.seoTitle is string && p.seoTitle.size() <= 180 && p.seoDescription is string && p.seoDescription.size() <= 300
+        && p.status in ['draft','published'] && p.createdAt is timestamp && p.updatedAt == request.time
+        && ((p.status == 'draft' && p.publishedAt == null) || (p.status == 'published' && p.publishedAt is timestamp && p.publishedAt <= request.time))
+        && getAfter(/databases/$(database)/documents/slugs/$(p.slug)).data.postId == id;
+    }
+    match /posts/{id} {
+      allow get: if admin() || resource.data.status == 'published';
+      allow list: if admin() || (resource.data.status == 'published' && request.query.limit <= 12);
+      allow create: if admin() && validPost(id) && request.resource.data.createdAt == request.time
+        && (request.resource.data.status == 'draft' || request.resource.data.publishedAt == request.time);
+      allow update: if admin() && validPost(id) && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.slug == resource.data.slug
+        && (request.resource.data.status == 'draft' || request.resource.data.publishedAt == resource.data.publishedAt || request.resource.data.publishedAt == request.time);
+      allow delete: if admin() && !existsAfter(/databases/$(database)/documents/slugs/$(resource.data.slug));
+    }
+    match /slugs/{slug} {
+      allow read: if admin();
+      allow create, update: if admin() && request.resource.data.keys().hasOnly(['postId'])
+        && request.resource.data.postId is string
+        && (!exists(/databases/$(database)/documents/slugs/$(slug)) || request.resource.data.postId == resource.data.postId)
+        && getAfter(/databases/$(database)/documents/posts/$(request.resource.data.postId)).data.slug == slug;
+      allow delete: if admin() && !existsAfter(/databases/$(database)/documents/posts/$(resource.data.postId));
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Tag Manager -->
+  <script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PWGXWM5W');
+  </script>
+  <!-- End Google Tag Manager -->
+  <meta name="description" content="Professional Himadri Creation booking form for wedding, pre-wedding, birthday, engagement and event photography enquiries via WhatsApp." />
+  <meta name="theme-color" content="#6B1F22" />
+  <title>Book Your Shoot | Himadri Creation</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon.png" />
+  <link rel="shortcut icon" href="./assets/favicon.ico" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="./src/styles.css" />
+</head>
+<body class="booking-page">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWGXWM5W"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="booking-bg" aria-hidden="true"></div>
+
+  <header class="site-header" id="top"><a href="/index.html#home" class="brand" aria-label="Himadri Creation home"><img class="brand-logo" src="/assets/logo-nav.jpeg" alt="Himadri Creation"></a><div class="nav-brand-note"><span aria-hidden="true"></span><p>MEMORYCRAFTED SINCE 2018</p><span aria-hidden="true"></span></div><nav class="main-nav" aria-label="Main navigation"><a href="/index.html#home">Home</a><a href="/index.html#about">About</a><a href="/index.html#services">Services</a><a href="/index.html#gallery">Gallery</a><a href="/index.html#packages">Packages</a><a href="/blog">Blog</a><a href="/careers">Career</a><a href="/index.html#contact">Contact</a><a class="mobile-book" href="/booking.html">Book Now</a></nav><a class="header-cta" href="/booking.html">Book Now</a><button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></header>
+
+  <main class="booking-main">
+  <section class="booking-card reveal in-view" aria-label="Customer booking form">
+      <form id="bookingForm" class="booking-form">
+        <div class="form-section-title">
+          <span>Step 1</span>
+          <h2>Event Booking Details</h2>
+          <p>Please share your basic contact and event details so we can prepare your booking enquiry professionally.</p>
+        </div>
+
+        <div class="form-grid two">
+          <label>
+            Client Full Name <small>*</small>
+            <input type="text" name="name" placeholder="Enter your full name" required />
+          </label>
+          <label>
+            Contact Number <small>*</small>
+            <input type="tel" name="phone" placeholder="Example: 9876543210" inputmode="tel" required />
+          </label>
+          <label>
+            Email Address
+            <input type="email" name="email" placeholder="example@email.com" />
+          </label>
+          <label class="date-field">
+            Preferred Event Date
+            <span class="booking-date-wrap">
+              <input type="text" name="date" id="eventDate" class="date-input" placeholder="Select your event date" autocomplete="off" />
+              <span class="calendar-icon" aria-hidden="true"></span>
+            </span>
+          </label>
+        </div>
+
+        <label class="full-field">
+          Event Location / Venue <small>*</small>
+          <input type="text" name="location" placeholder="Enter village, city, venue name or landmark" required />
+        </label>
+
+        <div class="form-section-title booking-step-head">
+          <span>Step 2</span>
+          <div>
+            <h2>Choose Your Event Type</h2>
+            <p>Select the service category that best matches your event requirement.</p>
+          </div>
+        </div>
+
+        <div class="category-grid" role="radiogroup" aria-label="Shooting category">
+          <label class="category-option"><input type="radio" name="category" value="Wedding Photography" required /><span>&#128141;</span><strong>Wedding Photography</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Pre-Wedding Shoot" /><span>&#128248;</span><strong>Pre-Wedding Shoot</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Engagement Ceremony" /><span>&#128171;</span><strong>Engagement Ceremony</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Birthday Celebration" /><span>&#127874;</span><strong>Birthday Celebration</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Rice Ceremony / Annaprashan" /><span>&#127868;</span><strong>Rice Ceremony / Annaprashan</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Upanayan Ceremony" /><span>&#128329;</span><strong>Upanayan Ceremony</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Reception Coverage" /><span>&#127908;</span><strong>Reception Coverage</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="4K Cinematic Film" /><span>&#127916;</span><strong>4K Cinematic Film</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Promotional Shoot" /><span>&#127909;</span><strong>Promotional Shoot</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Drone Coverage" /><span>&#128640;</span><strong>Drone Coverage</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="YouTube Content Creation" /><span>&#9654;</span><strong>YouTube Content Creation</strong></label>
+          <label class="category-option"><input type="radio" name="category" value="Event Coverage" /><span>&#10024;</span><strong>Event Coverage</strong></label>
+        </div>
+
+        <div class="form-section-title booking-step-head">
+          <span>Step 3</span>
+          <div>
+            <h2>Package, Budget & Event Requirements</h2>
+            <p>Select your preferred package and budget range. The budget options will adjust automatically based on your package.</p>
+          </div>
+        </div>
+
+        <label class="full-field package-field">
+          Select Preferred Package
+          <select name="package" id="packageSelect">
+            <option value="custom">Custom Package</option>
+            <option value="basic">Basic Package</option>
+            <option value="standard">Standard Package</option>
+            <option value="premium">Premium Package</option>
+          </select>
+        </label>
+
+        <div class="price-card">
+          <div class="price-topline">
+            <span>Estimated Budget</span>
+            <strong id="priceOutput">&#8377;9,999</strong>
+          </div>
+          <p class="price-helper" id="priceHelper">Selected package budget range: &#8377;4,999 to &#8377;49,999</p>
+          <input id="priceRange" name="budget" type="range" min="4999" max="49999" step="500" value="9999" />
+          <div class="price-limits"><span id="priceMinLabel">&#8377;4,999</span><span id="priceMaxLabel">&#8377;49,999</span></div>
+          <div class="quick-prices" aria-label="Quick budget options">
+            <button type="button" data-price="4999">&#8377;4,999</button>
+            <button type="button" data-price="9999">&#8377;9,999</button>
+            <button type="button" data-price="14999">&#8377;14,999</button>
+            <button type="button" data-price="24999">&#8377;24,999</button>
+            <button type="button" data-price="49999">&#8377;49,999</button>
+          </div>
+        </div>
+
+        <label class="full-field guests-field">
+          Expected Guest Count
+          <input type="number" name="guests" placeholder="Example: 300 guests" min="1" />
+        </label>
+
+        <label class="full-field requirements-field">
+          Additional Requirements
+          <textarea name="message" rows="5" placeholder="Mention event timing, rituals, album needs, cinematic video, reels, drone coverage, delivery deadline or any special request."></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="btn primary submit-booking" type="submit">
+            <img src="./assets/icons/whatsapp.svg" alt="" /> Send Booking Request
+          </button>
+        
+        </div>
+
+        <p class="form-note"><span aria-hidden="true">&#9432;</span> Privacy Note: Your details are not stored on this website. The form only prepares a WhatsApp booking message, and you can review it before sending.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <p>© 2026 Himadri Creation. All Rights Reserved.</p>
+      <p>Designed for Wedding & Event Photography.</p>
+    </div>
+    <div class="footer-social" aria-label="Social media links">
+      <a href="https://www.facebook.com/share/1Eprhgzmds/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="./assets/icons/facebook.svg" alt="" /></a>
+      <a href="https://www.instagram.com/himadricreation2020?igsh=MTB3cDNkZG81OHR6aQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="./assets/icons/instagram.svg" alt="" /></a>
+      <a href="https://youtube.com/@himadricreation?si=OpFiZW90sxBg5HMO" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="./assets/icons/youtube.svg" alt="" /></a>
+      <a href="https://www.linkedin.com/in/himadri-creation-780731416/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><img src="./assets/icons/linkedin.svg" alt="" /></a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof flatpickr !== 'undefined') {
+        flatpickr('#eventDate', {
+          dateFormat: 'd-m-Y',
+          minDate: 'today',
+          disableMobile: true,
+          appendTo: document.body,
+          monthSelectorType: 'static',
+          position: 'auto center',
+          onReady: function (_, __, instance) {
+            instance.calendarContainer.classList.add('himadri-flatpickr');
+          }
+        });
+      }
+    });
+  </script>
+  <script src="./src/booking.js"></script>
+  <script type="module" src="/src/navigation.js"></script>
+</body>
+</html>

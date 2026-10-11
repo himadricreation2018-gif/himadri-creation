@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://himadricreation.com/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://himadricreation.com/booking.html</loc>
+    <lastmod>2026-06-20</lastmod>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://himadricreation.com/careers</loc>
+    <lastmod>2026-10-05</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url><loc>https://himadricreation.com/blog</loc><priority>0.80</priority></url>
+</urlset>

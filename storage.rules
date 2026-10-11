@@ -1,0 +1,20 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function admin() { return request.auth != null && 'admin' in request.auth.token && request.auth.token.admin == true; }
+    function published(postId) {
+      return firestore.get(/databases/(default)/documents/posts/$(postId)).data.status == 'published';
+    }
+    match /blog/{postId}/{fileName} {
+      allow get: if admin() || published(postId);
+      allow list: if admin();
+      allow create, update: if admin()
+        && firestore.exists(/databases/(default)/documents/posts/$(postId))
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)')
+        && fileName.matches('^[a-zA-Z0-9-]+[.](webp|jpg|jpeg|png)$');
+      allow delete: if admin();
+    }
+    match /{path=**} { allow read, write: if false; }
+  }
+}

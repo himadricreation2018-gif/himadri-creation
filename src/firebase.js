@@ -1,0 +1,11 @@
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+const config = __FIREBASE_CONFIG__;
+export const configured = Boolean(config.apiKey && config.projectId && config.authDomain && config.appId);
+export const app = configured ? initializeApp(config) : null;
+export const auth = app ? getAuth(app) : null;
+export const db = app ? getFirestore(app) : null;
+export const storageEnabled = __STORAGE_ENABLED__;
+export const storage = app && storageEnabled ? getStorage(app) : null;

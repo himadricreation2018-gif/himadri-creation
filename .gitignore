@@ -1,0 +1,11 @@
+node_modules/
+.vercel/
+dist/
+.env
+.env.*
+!.env.example
+.firebase/
+*-debug.log
+test-results/
+tests/.store-runtime.mjs
+tests/.firebase-runtime-*.mjs

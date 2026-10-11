@@ -1,0 +1,9 @@
+3D Camera Model Attribution
+
+Uploaded DSLR GLB metadata indicates:
+Title: Canon EOS 5D Mark IV
+Author: RAW on Sketchfab
+License: CC-BY-4.0
+Source: https://sketchfab.com/3d-models/canon-eos-5d-mark-iv-33001ed6f05042d89ac8690ffaaed0a4
+
+The GLB in this package was converted to standard metallic-roughness PBR material workflow for browser/model-viewer compatibility.

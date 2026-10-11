@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://himadricreation.com", "https://YOUR_PROJECT.web.app", "http://127.0.0.1:8000"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
