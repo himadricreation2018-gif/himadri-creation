@@ -4,7 +4,7 @@ const toggle = document.querySelector('.menu-toggle');
 if (navigation && toggle) {
   navigation.id = 'main-navigation';
   toggle.setAttribute('aria-controls', navigation.id);
-  const media = matchMedia('(max-width: 1050px)');
+  const media = matchMedia('(max-width: 1190px)');
   const sync = () => {
     navigation.inert = media.matches && !navigation.classList.contains('open');
     toggle.setAttribute('aria-label', navigation.classList.contains('open') ? 'Close menu' : 'Open menu');

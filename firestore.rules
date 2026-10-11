@@ -1,6 +1,8 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Only a signed Firebase token's boolean custom claim grants this role.
+    // Email addresses and user-editable documents never grant administrator access.
     function admin() { return request.auth != null && 'admin' in request.auth.token && request.auth.token.admin == true; }
     function validPost(id) {
       let p = request.resource.data;
@@ -20,7 +22,7 @@ service cloud.firestore {
     }
     match /posts/{id} {
       allow get: if admin() || resource.data.status == 'published';
-      allow list: if admin() || (resource.data.status == 'published' && request.query.limit <= 12);
+      allow list: if admin() || (resource.data.status == 'published' && request.query.limit != null && request.query.limit <= 12);
       allow create: if admin() && validPost(id) && request.resource.data.createdAt == request.time
         && (request.resource.data.status == 'draft' || request.resource.data.publishedAt == request.time);
       allow update: if admin() && validPost(id) && request.resource.data.createdAt == resource.data.createdAt

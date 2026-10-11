@@ -9,3 +9,11 @@ dist/
 test-results/
 tests/.store-runtime.mjs
 tests/.firebase-runtime-*.mjs
+# Real credentials must be stored outside this checkout.
+**/*service-account*.json
+**/*serviceAccount*.json
+**/*firebase-adminsdk*.json
+**/application_default_credentials.json
+**/client_secret*.json
+*.pem
+*.key

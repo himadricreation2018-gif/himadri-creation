@@ -52,12 +52,12 @@ In **Authentication**, click **Get started** if initialization is required. Then
 The operator must assign the boolean custom claim `admin: true` from a trusted environment. Use Application Default Credentials with permission to administer Firebase Authentication in `himadri-creation`; Firebase CLI login alone does not supply Admin SDK credentials. An operator with Google Cloud CLI can use `gcloud auth application-default login`. Alternatively, point `GOOGLE_APPLICATION_CREDENTIALS` at an authorized service-account file stored **outside this repository**. The existing utility merges existing claims:
 
 ```powershell
-node scripts/admin-claim.mjs himadri-creation USER_UID grant
+node scripts/admin-claim.mjs himadri-creation USER_UID grant --apply
 ```
 
 Sign out and back in, then visit `/admin/login`. Admin routes check the claim, and Firestore rules independently require it for writes and private reads. A regular signed-in user cannot manage posts. Custom claims must be set through a privileged Admin SDK environment. [Firebase custom claims documentation](https://firebase.google.com/docs/auth/admin/custom-claims).
 
-To revoke access later, run `node scripts/admin-claim.mjs himadri-creation USER_UID revoke`. Existing ID tokens can remain valid until expiry; urgent revocation also requires disabling the user and tightening rules for that UID. Do not expose the operator script through a public endpoint.
+Check access with `node scripts/admin-claim.mjs himadri-creation USER_UID check`. To revoke access later, run `node scripts/admin-claim.mjs himadri-creation USER_UID revoke --apply`. Existing ID tokens can remain valid until expiry; urgent revocation also requires disabling the user and tightening rules for that UID. Do not expose the operator script through a public endpoint.
 
 ## Firestore, rules, and indexes
 

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile, rm } from 'node:fs/promises';
 import { build } from 'esbuild';
 import { initializeTestEnvironment, assertFails, assertSucceeds } from '@firebase/rules-unit-testing';
-import { doc, getDoc, getDocs, setDoc, deleteDoc, collection, query, where, limit, runTransaction, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, query, where, limit, runTransaction, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getBytes, deleteObject, listAll } from 'firebase/storage';
 let env, admin, visitor, member, store;
 const input = (id,slug,status='draft') => ({id,title:'Wedding story',slug,excerpt:'A lovely wedding.',content:'<p>Story</p>',coverImage:'/assets/logo-nav.jpeg',category:'Wedding Photography',author:'Studio',seoTitle:'',seoDescription:'',status,createdAt:serverTimestamp(),updatedAt:serverTimestamp(),publishedAt:status==='published'?serverTimestamp():null});
@@ -41,6 +41,24 @@ test('draft privacy, bounded public queries and private slug registry',async()=>
   const results=await assertSucceeds(getDocs(query(collection(visitor.firestore(),'posts'),where('status','==','published'),limit(9))));
   assert.equal(results.size,1);
   await assertFails(getDocs(query(collection(visitor.firestore(),'posts'),where('status','==','published'),limit(50))));
+});
+
+test('ordinary users cannot create, update or atomically delete valid posts or grant themselves claims',async()=>{
+  const ordinary = [visitor, member, env.authenticatedContext('false-admin',{admin:false}), env.authenticatedContext('string-admin',{admin:'true'})];
+  const published = (await getDoc(doc(admin.firestore(),'posts','public'))).data();
+  for (const context of ordinary) {
+    const db = context.firestore();
+    await assertSucceeds(getDoc(doc(db,'posts','public')));
+    await assertFails(runTransaction(db,async tx=>{
+      tx.set(doc(db,'slugs','unauthorized'),{postId:'unauthorized'});
+      tx.set(doc(db,'posts','unauthorized'),input('unauthorized','unauthorized'));
+    }));
+    await assertFails(setDoc(doc(db,'posts','public'),{...published,title:'Unauthorized edit',updatedAt:serverTimestamp()}));
+    await assertFails(updateDoc(doc(db,'posts','public'),{status:'draft',publishedAt:null,updatedAt:serverTimestamp()}));
+    await assertFails(runTransaction(db,async tx=>{tx.delete(doc(db,'posts','public'));tx.delete(doc(db,'slugs','public-story'));}));
+    await assertFails(setDoc(doc(db,'users','self'),{admin:true}));
+  }
+  assert.equal((await getDoc(doc(admin.firestore(),'posts','public'))).data().title, published.title);
 });
 test('slugs cannot be stolen or changed; schema and timestamps are enforced',async()=>{
   await assert.rejects(create(admin.firestore(),'collision','public-story'));

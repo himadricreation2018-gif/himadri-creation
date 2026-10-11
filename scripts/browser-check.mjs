@@ -14,8 +14,8 @@ const context = await browser.newContext({ reducedMotion: 'reduce' });
 await context.route('**/*', route => new URL(route.request().url()).hostname === '127.0.0.1' ? route.continue() : route.abort());
 const page = await context.newPage();
 const results = [];
-const routes = ['/', '/careers', '/booking.html', '/blog', '/admin/login'];
-const widths = [1440, 1191, 1051, 1024, 768, 390, 320];
+const routes = ['/', '/careers', '/booking.html', '/blog', '/blog/verification-missing-article', '/admin/login', '/admin/blog'];
+const widths = [1440, 1300, 1191, 1190, 1051, 1024, 768, 390, 320];
 try {
   for (const width of widths) {
     await page.setViewportSize({ width, height: 1000 });
@@ -35,7 +35,7 @@ try {
         assert.ok(part.left >= metrics.header.left && part.right <= metrics.header.right + 1, `Header item exceeds container: ${route} @ ${width}`);
         if (i) assert.ok(part.left >= metrics.parts[i-1].right - 1, `Header items overlap: ${route} @ ${width}`);
       }
-      assert.equal(await page.locator('.nav-brand-note').isVisible(), width > 1050);
+      assert.equal(await page.locator('.nav-brand-note').isVisible(), width > 1190);
       assert.equal(await page.locator('.main-nav').evaluate(nav => getComputedStyle(nav).fontSize), '15px');
       const labels = await page.locator('.eyebrow').evaluateAll(elements => elements.map(el => {
         const before = getComputedStyle(el, '::before');
@@ -47,7 +47,7 @@ try {
         assert.equal(label.before[2], '2px');
         assert.ok(label.fits, `Label overflows: ${route} @ ${width}`);
       }
-      if (width <= 1050) {
+      if (width <= 1190) {
         await page.locator('.menu-toggle').click();
         assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'true');
         assert.equal(await page.locator('.main-nav').evaluate(nav => nav.inert), false);
@@ -55,7 +55,19 @@ try {
         assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'), 'false');
         assert.equal(await page.locator('.main-nav').evaluate(nav => nav.inert), true);
       }
-      const result = { route, width, headerFits:true, taglineVisible:width>1050, mobileMenu:width<=1050 };
+      const result = { route, width, headerFits:true, taglineVisible:width>1190, mobileMenu:width<=1190 };
+      if (route === '/') {
+        const photos = await page.locator('.footer-mini-photo img').evaluateAll(images => images.map(image => ({ src:image.getAttribute('src'), loaded:image.complete && image.naturalWidth > 0, fit:getComputedStyle(image).objectFit })));
+        assert.equal(photos.length, 2);
+        for (const photo of photos) { assert.ok(photo.loaded, `Footer photo failed: ${photo.src}`); assert.equal(photo.fit, 'cover'); }
+        if (width > 1190) {
+          const gap = await page.locator('.main-nav').evaluate(nav => parseFloat(getComputedStyle(nav).columnGap));
+          assert.ok(gap >= 16 && gap <= 22, `Desktop navigation gap: ${gap}`);
+        }
+        assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Homepage overflows @ ${width}`);
+        await page.locator('.footer-two-photos').scrollIntoViewIfNeeded();
+        await page.screenshot({ path:`test-results/footer-${width}.png`, fullPage:false });
+      }
       if (route === '/careers') {
         const dimensions = await page.locator('.careers-hero').evaluate(hero => ({ height:hero.getBoundingClientRect().height, padding:getComputedStyle(hero).paddingTop, heading:getComputedStyle(hero.querySelector('h1')).fontSize }));
         // Measure the previous hero proportions on the same rendered page/font.
@@ -64,7 +76,7 @@ try {
         const previous = await page.locator('.careers-hero').evaluate(hero => hero.getBoundingClientRect().height);
         await page.locator('style').last().evaluate(style => style.remove());
         const reduction = (previous - dimensions.height) / previous * 100;
-        if (width >= 1051) assert.ok(reduction >= 15 && reduction <= 25, `Hero reduction ${reduction.toFixed(1)}% @ ${width}`);
+        if (width >= 1191) assert.ok(reduction >= 15 && reduction <= 25, `Hero reduction ${reduction.toFixed(1)}% @ ${width}`);
         Object.assign(result, dimensions, { previousHeight:previous, reductionPercent:Number(reduction.toFixed(1)) });
         await page.locator('.apply-now').click();
         const formTop = await page.locator('#careersForm').evaluate(form => form.getBoundingClientRect().top);
