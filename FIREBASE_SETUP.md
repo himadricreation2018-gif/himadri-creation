@@ -4,14 +4,14 @@ Use the existing **Himadri Creation** project, ID **`himadri-creation`**, on **S
 
 ## Current integration status
 
-The actual public Web App configuration supplied by the user is saved in the ignored `.env` file, and the rebuilt modular Firebase SDK initializes for **`himadri-creation`**. `.firebaserc` selects that existing project. **The frontend is configured; live Authentication and Firestore are not working yet.** No further configuration values need to be supplied for the current checkout.
+The actual public Web App configuration supplied by the user is saved in the ignored `.env` file, and the rebuilt modular Firebase SDK initializes for **`himadri-creation`**. `.firebaserc` selects that existing project. **The frontend is configured and Authentication is active; live Firestore remains disabled.** No further configuration values need to be supplied for the current checkout.
 
 Read-only `npm run firebase:status` returned:
 
 | Check | Actual result | Required action |
 | --- | --- | --- |
 | SDK/Web App configuration | Complete; local SDK initialization succeeds | Preserve the supplied `.env` values |
-| Authentication | HTTP 400, `CONFIGURATION_NOT_FOUND` | Initialize Authentication and enable Email/Password in the Console |
+| Authentication | HTTP 200; existing administrator shown in the Console | Sign in with the password created for that Firebase user; assign the administrator claim |
 | Published Firestore query | HTTP 403; Cloud Firestore API has not been used in this project or is disabled | Create/reuse the default database and activate its API if needed |
 | Draft Firestore query | The same service-disabled HTTP 403 | Live draft privacy remains unverified; test again after database/rules setup |
 | Firebase CLI account | No authorized accounts | Sign in before CLI rule/index or Hosting operations |
@@ -96,7 +96,7 @@ npm ci
 npm start
 ```
 
-Open `http://127.0.0.1:8000/`, `/careers`, `/blog`, and `/admin/login`. `npm start` builds and serves `dist`; rebuild and reload after source/configuration changes. The current supplied configuration shows the admin login interface, but sign-in and journal reads cannot succeed until the Console service setup above is complete.
+Open `http://127.0.0.1:8000/`, `/careers`, `/blog`, and `/admin/login`. `npm start` builds and serves `dist`; rebuild and reload after source/configuration changes. The current supplied configuration shows the admin login interface, and Authentication is now active. Administrator access requires the custom claim; journal reads require the Firestore setup above.
 
 ```powershell
 npm run build
@@ -153,3 +153,7 @@ Do not change GoDaddy records or the live site's existing deployment. This guide
 - Confirm the Firebase Console still shows Spark; no Storage, billing, Cloud Functions, DNS, or production deployment changes.
 
 Relevant implementation files: [src/firebase.js](src/firebase.js), [scripts/firebase-config.mjs](scripts/firebase-config.mjs), [scripts/firebase-status.mjs](scripts/firebase-status.mjs), [src/blog-store.js](src/blog-store.js), [src/admin-app.js](src/admin-app.js), [src/blog-app.js](src/blog-app.js), [src/image-library.js](src/image-library.js), [scripts/static-images.mjs](scripts/static-images.mjs), [scripts/admin-claim.mjs](scripts/admin-claim.mjs), [.env.example](.env.example), [firestore.rules](firestore.rules), [firestore.indexes.json](firestore.indexes.json), [firebase.json](firebase.json), and [.firebaserc](.firebaserc).
+
+## Authorized Firebase Hosting launch
+
+The owner selected free Firebase Hosting for deployment. The source is backed up in the private GitHub repository https://github.com/Surjendu-Pal/himadri-creation. Firebase CLI authentication is still required; no production deployment has succeeded yet. After account authorization and project access verification, deploy only Hosting using `npx firebase deploy --project himadri-creation --only hosting`. This does not activate Storage or change GoDaddy DNS. Publishing Hosting alone does not complete the Firestore/admin setup.

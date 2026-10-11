@@ -11,3 +11,5 @@ The CLI currently signs in as `surjendu-pal` and lists only `surjendu-pal's proj
 Before calling the blog ready, create the Firestore database, publish the included restrictive rules and indexes, and grant the existing administrator the `admin` custom claim using the documented trusted Admin SDK script. See `FIREBASE_SETUP.md`. Creating an Authentication user alone does not grant administrator access. Add the final hosting hostname to Firebase Authentication's authorized domains and test login, draft privacy, publishing, public blog reads, Careers and booking WhatsApp links.
 
 Verification: `npm run check`, `npm test`, `npm run test:browser`; Firestore/Storage rules can be checked against local emulators using `npm run test:rules`.
+
+The owner selected Firebase Hosting on Spark for the launch. Vercel configuration is retained as an optional future migration. Source repository: https://github.com/Surjendu-Pal/himadri-creation (private). Production deployment is pending Firebase CLI sign-in.
