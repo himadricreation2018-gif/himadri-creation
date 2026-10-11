@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.git/
+.vercel/
+.firebase/
+.env
+.env.*
+!.env.example
+test-results/
+*-debug.log
+**/*service-account*.json
+**/*serviceAccount*.json
+**/*firebase-adminsdk*.json
+**/application_default_credentials.json
+**/client_secret*.json
+*.pem
+*.key
